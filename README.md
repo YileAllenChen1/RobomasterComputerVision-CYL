@@ -19,6 +19,31 @@ The power rune is a windmill shaped device located at the center of the playing 
 </p>
 
 ### Method
+Since detecting the armor on the runes needs to be a quick decision process with little latency, the approach to solving this problem needs to be fast and accurate. One possible approach is using machine learning/deep learning, to train the model to recognize the armor plates. However, no ready-made dataset is available, and there is not much resources available to make a custom dataset that can fulfill the training task. 
 
+Therefore, a **traditional OpenCV approach** is taken to extract features from the frame and determine the armor target. A Kalman Filter is also applied to estimate and predict the approximate position of the next armor to target. Here is a flowchart showing the process:
+
+<p align="center">
+  <img src="demo/runeflowchart.jpg" height="250" width="850" > 
+</p>
+
+Here are some OpenCV functions used and the results they resturn:
+<p align="center">
+  <img src="demo/original.png" height="250" width="250"> <img src="demo/BGR2GRAY.png" height="250" width="250"> <img src="demo/THRESH_BINARY.png" height="250" width="250"> 
+  <h4 align="center">Original Frame, cvtColor(COLOR_BGR2GRAY), thresh(THRESH_BINARY)</h4> 
+</p>
+<p align="center">
+  <img src="demo/DILATE.png" height="250" width="250"> <img src="demo/FLOODFILL.png" height="250" width="250"> <img src="demo/THRESH_BINARY_INV.png" height="250" width="250"> 
+  <h4 align="center">Dilate, FloodFill, thresh(THRESH_BINARY_INV)</h4> 
+</p>
+<p align="center">
+  <img src="demo/DRAW_CONTOUR.png" height="250" width="250"> 
+  <h4 align="center"> DrawContour </h4> 
+</p>
 
 ### Results
+In the end, the system successfully detects all the armor plates, along with the armor plate that needs to be targeted next. The center of each armor plate is obtain and marked on the frame, and a circle is placed around the target armor plate. Here is a short demo:
+<p align="center">
+  <img src="demo/results.gif" height="250" width="250" > 
+</p>
+
