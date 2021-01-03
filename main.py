@@ -4,6 +4,13 @@ import numpy as np
 
 cap = cv.VideoCapture('media/runeDemo.mp4')
 
+frame_width = int(cap.get(3))
+frame_height = int(cap.get(4)) 
+   
+size = (frame_width, frame_height) 
+#cv.VideoWriter_fourcc(*'MP4V'),0x00000021
+#result = cv.VideoWriter('results.avi', cv.VideoWriter_fourcc(*'MJPG'), 10, size) 
+
 stateVal = 4 # number of states: coordinates and velocity (x,y,dx,dy)
 measureVal = 2 # measurement value: number of coordinates observed
 
@@ -26,19 +33,20 @@ while True:
     binary = frame
     frame = cv.resize(frame, (int(frame.shape[1] * 0.5), int(frame.shape[0] * 0.5)))    #frame = cv.resize(frame, None, fx=0.5,fy=0.5)
     binary = cv.resize(binary, (int(binary.shape[1] * 0.5), int(binary.shape[0] * 0.5)))    #binary = cv.resize(binary, None, fx=0.5,fy=0.5)
-       
+    #print(frame.shape[1] * 0.5, frame.shape[0] * 0.5)
     frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-
+    
     ret, frame= cv.threshold(frame, 80, 255, cv.THRESH_BINARY) # need to modify threshold 80
     
     kernel = np.ones((5,5),np.uint8)
     frame = cv.dilate(frame,kernel,iterations = 1)
-
+    
     mask = np.zeros((frame.shape[0]+2,frame.shape[1]+2),np.uint8)
-    cv.floodFill(frame, mask, (5,50), (255,0), cv.FLOODFILL_FIXED_RANGE)
-
+    #print(mask)
+    cv.floodFill(frame, mask, (5,50), (255,0,0), (10,)*3, (10,)*3, cv.FLOODFILL_FIXED_RANGE)
+    
     _, frame = cv.threshold(frame, 80, 255, cv.THRESH_BINARY_INV)
-
+    
     contours, hierarchy = cv.findContours(frame, cv.RETR_LIST, cv.CHAIN_APPROX_NONE) # RETR_LIST, CHAIN_APPROX_NONE
     
     for contour in contours:
@@ -56,12 +64,11 @@ while True:
         
         if(aim > 1.7 and aim < 2.6):    # ratio range for armor plates
             cv.drawContours(binary,[box], -1, (0, 255, 255), 4)    # draw contour on target armor plate
-            #cv.imshow('frmae feed', frame)
             
             M = cv.moments(contour)
             cX = int(M["m10"] / M["m00"])   
             cY = int(M["m01"] / M["m00"])
-            cv.circle(binary, (cX,cY), 3, (0, 0, 255), -1)
+            cv.circle(binary, (cX,cY), 3, (0, 0, 255), -1)  # draw center point of armor plate
             
             mid = 100000.0  # distance from mid point of fan blade to center of armor plate
             for i in range(1,len(contours)): # check the rest of the contours, generally 2 in this case
@@ -75,13 +82,13 @@ while True:
                 if aimA > 3.0:  # ratio range for fan blade
                     boxA = cv.boxPoints(rrectA)   # get the four vertices of the rotated rectanglce
                     boxA = np.int0(boxA)
-                    cv.drawContours(binary,[boxA], -1, (0, 128, 255), 4)
+                    #cv.drawContours(binary,[boxA], -1, (0, 128, 255), 4)
                     
                     # find the center point for the contours
                     Ma = cv.moments(contours[i])
                     cXa = int(Ma["m10"] / Ma["m00"])
                     cYa = int(Ma["m01"] / Ma["m00"])
-                    cv.circle(binary, (cXa,cYa), 3, (34, 255, 255), -1) # there are two parts (left,right) of a fan blade that connects to armor plate
+                    #cv.circle(binary, (cXa,cYa), 3, (34, 255, 255), -1) # there are two parts (left,right) of a fan blade that connects to armor plate
                     distance = math.sqrt((cX-cXa)**2 + (cY-cYa)**2) # calculated euclidian distance
 
                     if(mid > distance): # update 'mid' to smaller distance
@@ -106,6 +113,9 @@ while True:
     cv.imshow('Video feed', frame)
     cv.imshow('binary feed', binary)
     cv.waitKey(1)
+    #result.write(binary)
+cap.release() 
+#result.release() 
 
 """
 An ellipse is defined by 5 parameters:
