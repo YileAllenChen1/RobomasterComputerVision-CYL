@@ -6,7 +6,7 @@
 The power rune is a windmill shaped device located at the center of the playing field. It has an armour plate mounted at the tip of each of its five fan blades, and the robots have to hit the armour plates that light up. If they successfully hit all the armour plates in the correct order, the power rune will be activated and their team will gain a buff. The power rune has two forms: one is stationary, where the fan blades are not moving ("small rune"); the other is rotationary, where the fan blades rotate at a certain velocity ("big rune").
 
 <p align="center">
-  <img src="demo/redRune.jpg" height="250" width="250" >  <img src="demo/blueRune.jpg" height="250" width="250" > <img src="demo/runeDemoShort.gif" height="250" width="300" >
+  <img src="./demo/redRune.jpg" height="250" width="250" >  <img src="./demo/blueRune.jpg" height="250" width="250" > <img src="./demo/runeDemoShort.gif" height="250" width="300" >
 </p>
 
 ### Method
