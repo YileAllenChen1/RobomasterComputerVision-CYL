@@ -128,9 +128,9 @@ while True:
                 
                 R[hi] = rrect
                 RA[hi] = rrectA
-                print("rrect ",rrect, "rrectA ",rrectA)
-                print("-----------------------------------------")
-                print(hi, R[hi], RA[hi])
+                #print("rrect ",rrect, "rrectA ",rrectA)
+                #print("-----------------------------------------")
+                #print(hi, R[hi], RA[hi])
                 hi+=1
                 cv.drawContours(binary,[box], -1, (0, 255, 255), 4)
                 cv.drawContours(binary,[boxA], -1, (0, 255, 0), 4)
