@@ -113,7 +113,7 @@ while True:
     cv.imshow('Video feed', frame)
     cv.imshow('binary feed', binary)
     cv.waitKey(1)
-    result.write(binary)
+    #result.write(binary)
 cap.release() 
 #result.release() 
 
