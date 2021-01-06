@@ -50,7 +50,8 @@ while True:
     
     hi = 0
     heights = {}
-    R = RA = {}
+    R = {} 
+    RA = {}
 
     for contour in contours:
         # ignore contours smaller/larger than threshold
@@ -127,7 +128,8 @@ while True:
                 
                 R[hi] = rrect
                 RA[hi] = rrectA
-                print(rrect, rrectA)
+                print("rrect ",rrect, "rrectA ",rrectA)
+                print("-----------------------------------------")
                 print(hi, R[hi], RA[hi])
                 hi+=1
                 cv.drawContours(binary,[box], -1, (0, 255, 255), 4)
