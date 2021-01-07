@@ -36,6 +36,13 @@ data/*
 !data/trainvalno5k.shapes
 !data/*.sh
 
+!data/armor.yaml
+!data/filenames.txt
+!data/test.txt
+!data/val.txt
+!data/train.txt
+
+
 pycocotools/*
 results*.txt
 gcp_test*.sh
