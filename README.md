@@ -13,4 +13,4 @@ During the competition, robots from two teams battle each other on the arena by 
 Apply traditional OpenCV methods to perform object detection and tracking on Power Rune and robot armor plate. Check it out [here](https://github.com/YileAllenChen1/RobomasterComputerVision-CYL/tree/main/CV)
 
 ## Modeling
-Build a custom object detection model to detection robot armor plates using Yolo V5 (In progress). Check it out [hear](https://github.com/YileAllenChen1/RobomasterComputerVision-CYL/tree/main/modeling)
+Build a custom object detection model to detection robot armor plates using Yolo V5 (In progress). Check it out [here](https://github.com/YileAllenChen1/RobomasterComputerVision-CYL/tree/main/modeling)
