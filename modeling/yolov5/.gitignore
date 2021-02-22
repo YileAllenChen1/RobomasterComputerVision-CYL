@@ -41,7 +41,9 @@ data/*
 !data/test.txt
 !data/val.txt
 !data/train.txt
-
+!data/labels
+!data/ImageSets
+!data/scripts
 
 pycocotools/*
 results*.txt
